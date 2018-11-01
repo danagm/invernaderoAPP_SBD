@@ -19,16 +19,16 @@
   <ion-list>
     <ion-item>
       <ion-label floating>Username</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input [(ngModel)]="usuario" type="text"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Password</ion-label>
-      <ion-input type="password"></ion-input>
+      <ion-input [(ngModel)]="password" type="password"></ion-input>
     </ion-item>
   </ion-list>
 
-  <button (click)="clickHome()" ion-button block color="secondary" round>Login</button>
+  <button [disabled]="this.usuario.length==0 || this.password.length==0" (click)="clickHome()" ion-button block color="secondary" round>Login</button>
 
 </ion-content>
 
