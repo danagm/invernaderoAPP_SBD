@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import {HomePage} from "../home/home";
 import {Http, HttpModule} from "@angular/http";
 
@@ -16,13 +16,13 @@ import {Http, HttpModule} from "@angular/http";
   templateUrl: 'login.html',
 })
 export class LoginPage {
-
+  invernaderos = [];
   home = HomePage;
 
   usuario = '';
   password = '';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http, public alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
@@ -34,11 +34,34 @@ export class LoginPage {
     console.log(this.usuario);
     console.log(this.password);
 
-    this.http.get('/home/')
+    this.http.get('/login/?usuario='+this.usuario+'&password='+this.password)
       .subscribe( data => {
         console.log(data.text());
+        if(data.text() == "True"){
+          //mandar a la siguiente pagina
+          this.navCtrl.setRoot(this.home, {usuario: this.usuario});
+        }
+        else{
+          ///mandar alerta
+          const alerta = this.alertCtrl.create(
+            {
+              title: 'Oops!',
+              subTitle: 'Usuario/Contraseña incorrectos',
+              buttons: ['Ok']
+            }
+          );
+          alerta.present();
+        }
       }, error => {
           console.log("error");
+          const alerta = this.alertCtrl.create(
+            {
+              title: 'Oops!',
+              subTitle: 'Error de conexión',
+              buttons: ['Ok']
+            }
+          );
+        alerta.present();
         }
       );
     ///this.navCtrl.push(this.home);
