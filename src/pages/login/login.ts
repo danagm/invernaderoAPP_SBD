@@ -16,7 +16,6 @@ import {Http, HttpModule} from "@angular/http";
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  invernaderos = [];
   home = HomePage;
 
   usuario = '';
@@ -24,6 +23,9 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http, public alertCtrl: AlertController) {
   }
+
+
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
